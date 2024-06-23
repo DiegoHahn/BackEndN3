@@ -15,9 +15,9 @@ public class EquipeController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAjuda() {
         Map<String, Object> response = new HashMap<>();
-        response.put("estudantes", new String[]{"Diego Hahn Fração", "João Vitor Brogni"});
-        response.put("projeto", "EduRepo");
-        response.put("tema", "Repositórios Educacionais");
+        response.put("Estudantes", new String[]{"Diego Hahn Fração", "João Vitor Brogni"});
+        response.put("Projeto", "EduRepos");
+        response.put("Tema", "Repositórios Educacionais");
 
         return ResponseEntity.ok(response);
     }

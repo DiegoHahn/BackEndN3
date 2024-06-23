@@ -1,6 +1,8 @@
 package ProjetoN3.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Set;
 
 @Entity
@@ -8,7 +10,9 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "O nome é obrigatório.")
     private String name;
+    @NotNull(message = "A descrição é obrigatória.")
     private String description;
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Set<Resource> resources;

@@ -1,17 +1,23 @@
 package ProjetoN3.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "O título é obrigatório.")
     private String title;
+    @NotNull(message = "A descrição é obrigatória.")
     private String description;
+    @NotNull(message = "A URL é obrigatória.")
     private String url;
+    @NotNull(message = "O tipo é obrigatório.")
     private String type;
     @ManyToOne
+    @NotNull(message = "A categoria é obrigatória.")
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 

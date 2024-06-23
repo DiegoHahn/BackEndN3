@@ -2,6 +2,7 @@ package ProjetoN3.Controller;
 
 import ProjetoN3.Model.Category;
 import ProjetoN3.Service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,13 +28,14 @@ public class CategoryController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    //
     @PostMapping
-    public Category createCategory(@RequestBody Category category) {
+    public Category createCategory(@RequestBody @Valid Category category) {
         return categoryService.save(category);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category categoryDetails) {
+    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody @Valid Category categoryDetails) {
         return categoryService.findById(id)
                 .map(category -> {
                     category.setName(categoryDetails.getName());

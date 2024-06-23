@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import jakarta.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -13,9 +14,13 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "O nome é obrigatório.")
     private String name;
+    @NotNull(message = "O email é obrigatório.")
     private String email;
+    @NotNull(message = "A senha é obrigatória.")
     private String password;
+    @NotNull(message = "A role é obrigatória.")
     private String role;
 
     // Getters e setters

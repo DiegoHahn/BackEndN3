@@ -2,6 +2,7 @@ package ProjetoN3.Controller;
 
 import ProjetoN3.Model.Resource;
 import ProjetoN3.Service.ResourceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,13 +28,26 @@ public class ResourceController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    //Pode fazer chamada para filtrar a categoria pelo ID
+    @GetMapping("/category/{categoryId}")
+    public Page<Resource> getResourcesByCategoryId(@PathVariable Long categoryId, Pageable pageable) {
+        return resourceService.findByCategoryId(categoryId, pageable);
+    }
+
+    //Pode fazer chamada para filtrar a categoria pelo nome
+    @GetMapping("/category/name/{categoryName}")
+    public Page<Resource> getResourcesByCategoryName(@PathVariable String categoryName, Pageable pageable) {
+        return resourceService.findByCategoryName(categoryName, pageable);
+    }
+
+    //Post e Put com a validaçao do recurso
     @PostMapping
-    public Resource createResource(@RequestBody Resource resource) {
-        return resourceService.save(resource);
+    public Resource createResource(@RequestBody @Valid Resource resource) {
+        return resourceService.saveResource(resource);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Resource> updateResource(@PathVariable Long id, @RequestBody Resource resourceDetails) {
+    public ResponseEntity<Resource> updateResource(@PathVariable Long id, @RequestBody  @Valid Resource resourceDetails) {
         return resourceService.findById(id)
                 .map(resource -> {
                     resource.setTitle(resourceDetails.getTitle());
@@ -56,8 +70,4 @@ public class ResourceController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/category/{categoryId}")
-    public Page<Resource> getResourcesByCategoryId(@PathVariable Long categoryId, Pageable pageable) {
-        return resourceService.findByCategoryId(categoryId, pageable);
-    }
 }
